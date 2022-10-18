@@ -1,0 +1,211 @@
+rtkit (0.13-4) unstable; urgency=medium
+
+  * Really fix systemd service install location (Closes: #956672)
+
+ -- Felipe Sateler <fsateler@debian.org>  Sat, 25 Apr 2020 11:32:55 -0400
+
+rtkit (0.13-3) unstable; urgency=medium
+
+  * Fix typo and install systemd service at the correct location
+    (Closes: #956672)
+
+ -- Felipe Sateler <fsateler@debian.org>  Tue, 14 Apr 2020 15:19:09 -0400
+
+rtkit (0.13-2) unstable; urgency=medium
+
+  * The brown paper bag release.
+  * Add missing build-depends on meson and ninja
+  * Fix build check for librt
+
+ -- Felipe Sateler <fsateler@debian.org>  Sat, 11 Apr 2020 10:56:46 -0400
+
+rtkit (0.13-1) unstable; urgency=medium
+
+  * New upstream version 0.13
+    - Drop all patches -- applied upstream
+  * Use meson build system.
+    Add patch to install rtkitctl to sbin, as was bone by autotools
+
+ -- Felipe Sateler <fsateler@debian.org>  Sun, 05 Apr 2020 12:18:32 -0400
+
+rtkit (0.12-5) unstable; urgency=medium
+
+  [ Ondřej Nový ]
+  * Bump Standards-Version to 4.4.1
+
+  [ Felipe Sateler ]
+  * Mark installed-tests as having isolation-machine restriction. Turns out that
+    depending on the container manager, realtime operations might not be
+    allowed. Thus, let's require a machine for it (Closes: #946104)
+  * Set upstream metadata fields: Bug-Database, Bug-Submit, Repository,
+    Repository-Browse.
+
+ -- Felipe Sateler <fsateler@debian.org>  Sat, 04 Apr 2020 12:10:51 -0300
+
+rtkit (0.12-4) unstable; urgency=medium
+
+  * Fix FTBFS in arm* targets. Don't use assembler files directly, but rather
+    use xxd to generate a C source file
+  * installed-tests: fix dbus start instruction.
+    The arguments where in the wrong order
+
+ -- Felipe Sateler <fsateler@debian.org>  Sat, 23 Mar 2019 20:19:44 -0300
+
+rtkit (0.12-3) unstable; urgency=medium
+
+  * autopkgtest: Start dbus before trying to run rtkit.
+    Otherwise it might not be runing. We might not have a fully booted
+    system
+
+ -- Felipe Sateler <fsateler@debian.org>  Tue, 19 Mar 2019 22:16:13 -0300
+
+rtkit (0.12-2) unstable; urgency=medium
+
+  * Add autopkgtest for running rtkit-test
+
+ -- Felipe Sateler <fsateler@debian.org>  Fri, 08 Mar 2019 10:34:54 -0300
+
+rtkit (0.12-1) unstable; urgency=medium
+
+  [ Ondřej Nový ]
+  * d/copyright: Use https protocol in Format field
+
+  [ Felipe Sateler ]
+  * Update to new upstream URL
+  * Change watch file to check upstream gpg signature
+  * New upstream version 0.12
+    - Remove all patches - applied upstream
+    - XML Introspection file installed by upstream build system now, so
+      don't generate and install it anymore
+  * Move dbus policy from /etc to /usr.
+    Remove the old conffile on upgrades
+  * Adjust to unvendoring of sd-daemon library.
+    Add libsystemd-dev Build-Dependency, and remove references from
+    d/copyright
+  * Bump Standards-Version
+  * Bump debhelper compat to 12
+  * Add Rules-Requires-Root: no, since we don't need root
+  * Install rtkit test to /usr/libexec/installed-tests
+
+ -- Felipe Sateler <fsateler@debian.org>  Thu, 07 Mar 2019 15:35:15 -0300
+
+rtkit (0.11-6) unstable; urgency=medium
+
+  * Move dbus and polkit from Recommends to Depends
+    rtkit can't do much really without either of them so bump them to Depends.
+    (Closes: #881342)
+  * Switch maintainer to debian-multimedia@l.d.o since alioth will be going away
+  * Update Vcs-* to point to salsa
+  * Update standards-version (no changes needed)
+  * Drop dh-autoreconf and autotools-dev Build-Dependencies, implied by
+    debhelper compat 10
+
+ -- Felipe Sateler <fsateler@debian.org>  Fri, 16 Feb 2018 13:59:32 -0300
+
+rtkit (0.11-5) unstable; urgency=medium
+
+  [ Felipe Sateler ]
+  * Update Vcs-* urls
+  * Stop the rktid daemon when removing the package. (Closes: #813149)
+  * Bump debhelper compat level to 10
+  * Switch from cdbs to dh sequencer
+  * Enable hardening flags
+  * Don't start or enable the rtkit daemon by default.
+    Debhelper 10 enables the systemd addon by default, so disable the
+    starting on install it brings.
+  * Bump standards-version (no changes needed)
+
+  [ Andrew Shadura ]
+  * Add a format string to dbus_message_new_error_printf.
+    Fixes an FTBFS due to -Werror=format-security (Closes: #855605)
+
+ -- Felipe Sateler <fsateler@debian.org>  Tue, 27 Jun 2017 22:14:43 -0400
+
+rtkit (0.11-4) unstable; urgency=medium
+
+  * Remove stale ubuntu.series file.
+
+ -- Felipe Sateler <fsateler@debian.org>  Sat, 24 Oct 2015 18:44:16 -0300
+
+rtkit (0.11-3) unstable; urgency=medium
+
+  [ Felipe Sateler ]
+  * Add myself to uploaders
+  * Add patch to fix rtkit-test failure
+  * Install rtkit test program
+  * Use autoreconf at build
+  * Fix linkage with librt (Closes: #802110)
+  * Build rtkit out-of-tree
+  * Fixup build in outoftree
+  * Pick up no-ptrace patch from ubuntu.
+
+  [ Alessio Treglia ]
+  * Drop 02-fix-undropped-supp-groups.patch.
+
+ -- Felipe Sateler <fsateler@debian.org>  Sun, 18 Oct 2015 12:45:11 -0300
+
+rtkit (0.11-2) unstable; urgency=medium
+
+  * Team upload
+
+  * Remove build dependency on libpolkit-backend-1-dev, it is not used
+    (Closes: #696900)
+  * Drop removed ControlGroup stanza (Closes: #747568)
+
+ -- Felipe Sateler <fsateler@debian.org>  Sun, 16 Nov 2014 15:56:39 -0300
+
+rtkit (0.11-1) unstable; urgency=low
+
+  * New upstream release.
+  * Drop 02-fix-undropped-supp-groups.patch, already adopted upstream.
+  * debian/watch: New tarballs seem to be provided in xz format.
+  * Fix multiple issues in debian/copyright:
+    - Fix wrong License fields and files listing.
+    - Update copyright holders information.
+  * Fix VCS tags.
+  * Bump Standards.
+
+ -- Alessio Treglia <alessio@debian.org>  Mon, 28 Apr 2014 14:01:52 +0100
+
+rtkit (0.10-3) unstable; urgency=high
+
+  * Update debian/copyright.
+  * Add dbus, policykit-1 on Recommends. (Closes: #657351)
+  * Fix CVE-2013-4326 (Closes: #723714)
+
+ -- Alessio Treglia <alessio@debian.org>  Thu, 19 Sep 2013 09:30:47 +0100
+
+rtkit (0.10-2) unstable; urgency=low
+
+  * debian/patches/02-fix-undropped-supp-groups.patch:
+    - Fix a security bug of not dropping supplemental groups.
+  * Bump Standards.
+
+ -- Alessio Treglia <alessio@debian.org>  Thu, 28 Jul 2011 16:58:35 +0200
+
+rtkit (0.10-1) unstable; urgency=low
+
+  * New upstream release.
+
+ -- Alessio Treglia <alessio@debian.org>  Wed, 09 Mar 2011 22:05:48 +0100
+
+rtkit (0.9-3) unstable; urgency=low
+
+  * Pass systemd unit dir to the configure script, thanks to
+    Daniel Schaal for the patch (Closes: #612084).
+
+ -- Alessio Treglia <alessio@debian.org>  Wed, 09 Feb 2011 10:02:26 +0100
+
+rtkit (0.9-2) unstable; urgency=low
+
+  * Reduce the delta between Debian and Ubuntu:
+    - Re-introduce Ubuntu-specific patch, which gets applied to Ubuntu
+      only.
+
+ -- Alessio Treglia <alessio@debian.org>  Mon, 15 Nov 2010 01:24:38 +0100
+
+rtkit (0.9-1) unstable; urgency=low
+
+  * Initial Debian package. (Closes: #535426)
+
+ -- Luke Yelavich <themuso@ubuntu.com>  Tue, 02 Nov 2010 14:22:37 -0400

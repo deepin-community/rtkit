@@ -1,0 +1,3 @@
+Tests: installed-tests
+Depends: dbus, rtkit
+Restrictions: needs-root, isolation-machine

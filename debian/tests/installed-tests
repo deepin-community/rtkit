@@ -1,0 +1,7 @@
+#!/bin/sh
+
+set -e
+
+service dbus start
+
+/usr/libexec/installed-tests/rtkit/rtkit-test

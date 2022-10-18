@@ -1,0 +1,8 @@
+#ifndef fooconfighfoo
+#define fooconfighfoo
+
+#mesondefine PACKAGE_VERSION
+
+#mesondefine HAVE_LIBSYSTEMD
+
+#endif

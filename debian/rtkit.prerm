@@ -1,0 +1,12 @@
+#!/bin/sh
+
+set -e
+
+#DEBHELPER#
+
+if [ "$1" = "remove" ] ; then
+	# don't prevent uninstallation if stopping fails (eg, no dbus daemon)
+	rtkitctl --exit 2>/dev/null || true
+fi
+
+exit 0

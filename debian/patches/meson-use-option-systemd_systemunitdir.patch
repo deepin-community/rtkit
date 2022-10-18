@@ -1,0 +1,22 @@
+From: Felipe Sateler <fsateler@debian.org>
+Date: Sat, 25 Apr 2020 11:27:11 -0400
+Subject: meson: use option systemd_systemunitdir
+
+It was defined in meson_options.txt but its value was ignored
+---
+ meson.build | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/meson.build b/meson.build
+index 49da472..602cecc 100644
+--- a/meson.build
++++ b/meson.build
+@@ -58,7 +58,7 @@ if policydir == ''
+         policydir = get_option('datadir') / 'polkit-1' / 'actions'
+ endif
+ 
+-systemunitdir = ''
++systemunitdir = get_option('systemd_systemunitdir')
+ if systemunitdir == '' and systemd_dep.found()
+         systemunitdir = systemd_dep.get_pkgconfig_variable(
+                 'systemdsystemunitdir',
