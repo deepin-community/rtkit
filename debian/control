@@ -3,7 +3,6 @@ Maintainer: Debian Multimedia Maintainers <debian-multimedia@lists.debian.org>
 Uploaders:
  Alessio Treglia <alessio@debian.org>,
  Luke Yelavich <themuso@ubuntu.com>,
- Felipe Sateler <fsateler@debian.org>
 Section: admin
 Priority: optional
 Build-Depends:
@@ -14,7 +13,7 @@ Build-Depends:
  meson,
  ninja-build,
  xxd,
-Standards-Version: 4.4.1
+Standards-Version: 4.6.2
 Vcs-Browser: https://salsa.debian.org/multimedia-team/rtkit
 Vcs-Git: https://salsa.debian.org/multimedia-team/rtkit.git
 Homepage: https://github.com/heftig/rtkit
@@ -24,8 +23,8 @@ Package: rtkit
 Architecture: any
 Depends:
  adduser,
- dbus,
- policykit-1,
+ default-dbus-system-bus | dbus-system-bus,
+ polkitd | policykit-1,
  ${misc:Depends},
  ${shlibs:Depends}
 Description: Realtime Policy and Watchdog Daemon
