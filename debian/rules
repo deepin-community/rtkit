@@ -13,7 +13,7 @@ override_dh_update_autotools_config:
 
 override_dh_auto_configure:
 	dh_auto_configure -- \
-		-Dsystemd_systemunitdir=/lib/systemd/system \
+		-Dsystemd_systemunitdir=/usr/lib/systemd/system \
 		-Dlibsystemd=enabled \
 		-Dinstalled_tests=true \
 

@@ -1,3 +1,29 @@
+rtkit (0.13-5.1) unstable; urgency=medium
+
+  * Non-maintainer upload.
+
+  [ Michael Biebl ]
+  * Install systemd units into /usr. (Closes: #1064316)
+
+ -- Chris Hofstaedtler <zeha@debian.org>  Wed, 29 May 2024 00:50:40 +0200
+
+rtkit (0.13-5) unstable; urgency=medium
+
+  * Team upload
+
+  [ Felipe Sateler ]
+  * Remove myself from uploaders
+
+  [ Simon McVittie ]
+  * d/control: Depend on polkitd | policykit-1 (Closes: #1020598, #1025609)
+  * d/control: Depend on default-dbus-system-bus | dbus-system-bus
+    (Closes: #1023850)
+
+  [ Sebastian Ramacher ]
+  * debian/control: Bump Standards-Version
+
+ -- Sebastian Ramacher <sramacher@debian.org>  Mon, 27 Feb 2023 00:08:26 +0100
+
 rtkit (0.13-4) unstable; urgency=medium
 
   * Really fix systemd service install location (Closes: #956672)
