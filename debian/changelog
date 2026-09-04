@@ -1,3 +1,11 @@
+rtkit (0.14-1deepin1) unstable; urgency=medium
+
+  * rtkit.sysusers: Drop exclamation mark on u since our systemd
+    is not 257 yet.
+    https://github.com/systemd/systemd/pull/34876
+
+ -- lichenggang <lichenggang@uniontech.com>  Fri, 04 Sep 2026 15:41:18 +0800
+
 rtkit (0.14-1) unstable; urgency=medium
 
   * Team upload
