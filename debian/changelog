@@ -1,3 +1,33 @@
+rtkit (0.14-1) unstable; urgency=medium
+
+  * Team upload
+
+  [ Dylan Aïssi ]
+  * New upstream version 0.14
+  * d/watch: switch to version 5 and target the new upstream location
+  * Add debian/salsa-ci.yml
+  * gbp: drop compression option since there is no upstream xz tarball anymore
+  * Drop all patches, merged upstream
+  * Update links to the new home on gitlab.freedesktop.org
+
+  [ Luca Boccassi ]
+  * Stop deleting system user on remove/purge
+  * Install and use sysusers.d config file
+
+  [ Sebastian Ramacher ]
+  * debian/:
+    - Remove no longer needed maintscript
+    - Query systemd service installation dir via pkgconf
+  * debian/control:
+    - Drop Priority: optional
+    - Drop RRR: no
+    - Bump Standards-Version
+    - Bump debhelper compat to 13
+    - Fix lintian warning on polkitd dependency
+  * debian/rules: Drop handling of autotools
+
+ -- Sebastian Ramacher <sramacher@debian.org>  Thu, 19 Feb 2026 22:26:12 +0100
+
 rtkit (0.13-5.1) unstable; urgency=medium
 
   * Non-maintainer upload.

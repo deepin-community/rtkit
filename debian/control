@@ -4,27 +4,26 @@ Uploaders:
  Alessio Treglia <alessio@debian.org>,
  Luke Yelavich <themuso@ubuntu.com>,
 Section: admin
-Priority: optional
 Build-Depends:
- debhelper-compat (= 12),
+ debhelper-compat (= 13),
+ dh-sequence-installsysusers,
  libcap-dev,
  libdbus-1-dev,
  libsystemd-dev,
  meson,
  ninja-build,
+ systemd-dev,
  xxd,
-Standards-Version: 4.6.2
+Standards-Version: 4.7.3
 Vcs-Browser: https://salsa.debian.org/multimedia-team/rtkit
 Vcs-Git: https://salsa.debian.org/multimedia-team/rtkit.git
-Homepage: https://github.com/heftig/rtkit
-Rules-Requires-Root: no
+Homepage: https://gitlab.freedesktop.org/pipewire/rtkit
 
 Package: rtkit
 Architecture: any
 Depends:
- adduser,
  default-dbus-system-bus | dbus-system-bus,
- polkitd | policykit-1,
+ polkitd | pkexec,
  ${misc:Depends},
  ${shlibs:Depends}
 Description: Realtime Policy and Watchdog Daemon

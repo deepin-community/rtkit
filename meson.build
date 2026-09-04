@@ -1,8 +1,8 @@
 project(
         'rtkit', 'c',
-        version: '0.13',
+        version: '0.14',
         license: 'GPL3',
-        meson_version: '>=0.49.0',
+        meson_version: '>=0.58.0',
         default_options: ['c_std=c99', 'warning_level=2'],
 )
 
@@ -13,7 +13,14 @@ add_project_arguments(
 
 cc = meson.get_compiler('c')
 sh = find_program('sh')
-xxd = find_program('xxd')
+xxd = find_program('xxd', required: false)
+
+all_warnings = [
+        '-Wno-unused-parameter',
+]
+
+supported_warnings = cc.get_supported_arguments(all_warnings)
+add_project_arguments(supported_warnings, language: 'c')
 
 dbus_dep = dependency('dbus-1')
 libcap_dep = dependency('libcap')
@@ -22,7 +29,7 @@ polkit_dep = dependency('polkit-gobject-1', required: false)
 systemd_dep = dependency('systemd', required: false)
 thread_dep = dependency('threads')
 
-librt_dep = cc.find_library('z')
+librt_dep = cc.find_library('rt')
 cc.check_header('sched.h', dependencies: librt_dep)
 cc.has_function('sched_setscheduler', dependencies: librt_dep)
 
@@ -31,17 +38,17 @@ testsdir = get_option('libexecdir') / 'installed-tests' / meson.project_name()
 
 busservicedir = get_option('dbus_systemservicedir')
 if busservicedir == ''
-        busservicedir = dbus_dep.get_pkgconfig_variable(
+        busservicedir = dbus_dep.get_variable(
                 'system_bus_services_dir',
-                default: get_option('datadir') / 'dbus-1' / 'system-services',
+                default_value: get_option('datadir') / 'dbus-1' / 'system-services',
         )
 endif
 
 interfacedir = get_option('dbus_interfacedir')
 if interfacedir == ''
-        interfacedir = dbus_dep.get_pkgconfig_variable(
+        interfacedir = dbus_dep.get_variable(
                 'interfaces_dir',
-                default: get_option('datadir') / 'dbus-1' / 'interfaces',
+                default_value: get_option('datadir') / 'dbus-1' / 'interfaces',
         )
 endif
 
@@ -52,23 +59,33 @@ endif
 
 policydir = get_option('polkit_actiondir')
 if policydir == '' and polkit_dep.found()
-        policydir = polkit_dep.get_pkgconfig_variable('actiondir', default: '')
+        policydir = polkit_dep.get_variable('actiondir', default_value: '')
 endif
 if policydir == ''
         policydir = get_option('datadir') / 'polkit-1' / 'actions'
 endif
 
-systemunitdir = ''
+systemunitdir = get_option('systemd_systemunitdir')
 if systemunitdir == '' and systemd_dep.found()
-        systemunitdir = systemd_dep.get_pkgconfig_variable(
+        systemunitdir = systemd_dep.get_variable(
                 'systemdsystemunitdir',
-                default: '',
+                default_value: '',
         )
 endif
 if systemunitdir == ''
         systemunitdir = get_option('libdir') / 'systemd' / 'system'
 endif
 
+sysusersdir = ''
+if sysusersdir == '' and systemd_dep.found()
+        sysusersdir = systemd_dep.get_variable(
+                'sysusersdir',
+                default_value: '',
+        )
+endif
+if sysusersdir == ''
+        sysusersdir = get_option('libdir') / 'sysusers.d'
+endif
 config = configuration_data()
 config.set('LIBEXECDIR', get_option('prefix') / libexecdir)
 config.set_quoted('PACKAGE_VERSION', meson.project_version())
@@ -80,14 +97,19 @@ config_h = configure_file(
         configuration: config,
 )
 
-xml_introspection_h = configure_file(
-        input: 'org.freedesktop.RealtimeKit1.xml',
-        output: 'xml-introspection.h',
-        command: [
-                sh, '-c', '"$1" -i < "$2" > "$3"', sh,
-                xxd, '@INPUT@', '@OUTPUT@'
-        ],
-)
+if xxd.found()
+        xml_introspection_h = configure_file(
+                input: 'org.freedesktop.RealtimeKit1.xml',
+                output: 'xml-introspection.h',
+                command: [
+                        sh, '-c', '"$1" -i < "$2" > "$3"', sh,
+                        xxd, '@INPUT@', '@OUTPUT@'
+                ],
+        )
+else
+        warning('xxd not found, cannot compile introspection XML. Looking for existing one...')
+        xml_introspection_h = files('xml-introspection.h')
+endif
 
 executable(
         'rtkit-daemon',
@@ -115,6 +137,7 @@ executable(
         'rtkitctl',
         'rtkitctl.c', 'rtkit.h', config_h,
         install: true,
+        install_dir: get_option('sbindir'),
         dependencies: [dbus_dep],
 )
 
@@ -135,4 +158,10 @@ configure_file(
         output: 'rtkit-daemon.service',
         configuration: config,
         install_dir: systemunitdir,
+)
+
+install_data(
+        'rtkit.sysusers',
+        rename: 'rtkit.conf',
+        install_dir: sysusersdir,
 )
