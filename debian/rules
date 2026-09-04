@@ -1,19 +1,15 @@
 #!/usr/bin/make -f
 
 DEB_BUILD_MAINT_OPTIONS = hardening=+all
-DPKG_EXPORT_BUILDFLAGS = 1
-
-include /usr/share/dpkg/default.mk
 
 %:
-	dh $@ --buildsystem=meson --without autoreconf,autotools-dev
+	dh $@
 
 override_dh_update_autotools_config:
 	# pass
 
 override_dh_auto_configure:
 	dh_auto_configure -- \
-		-Dsystemd_systemunitdir=/usr/lib/systemd/system \
 		-Dlibsystemd=enabled \
 		-Dinstalled_tests=true \
 

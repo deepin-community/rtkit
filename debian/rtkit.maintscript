@@ -1,1 +1,0 @@
-rm_conffile /etc/dbus-1/system.d/org.freedesktop.RealtimeKit1.conf 0.12-1~ rtkit

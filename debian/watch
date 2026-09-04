@@ -1,6 +1,4 @@
-version=4
+Version: 5
 
-opts="pgpsigurlmangle=s/$/.asc/" \
-	https://github.com/heftig/rtkit/releases \
-	(?:.*?/)?rtkit-(\d[\d.]*)\.tar\.xz debian uupdate
-
+Template: Gitlab
+Dist: https://gitlab.freedesktop.org/pipewire/rtkit

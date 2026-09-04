@@ -1,4 +1,4 @@
-Bug-Database: https://github.com/heftig/rtkit/issues
-Bug-Submit: https://github.com/heftig/rtkit/issues/new
-Repository: https://github.com/heftig/rtkit.git
-Repository-Browse: https://github.com/heftig/rtkit
+Bug-Database: https://gitlab.freedesktop.org/pipewire/rtkit/-/issues
+Bug-Submit: https://gitlab.freedesktop.org/pipewire/rtkit/-/issues/new
+Repository: https://gitlab.freedesktop.org/pipewire/rtkit.git
+Repository-Browse: https://gitlab.freedesktop.org/pipewire/rtkit

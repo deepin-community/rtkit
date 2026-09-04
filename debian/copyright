@@ -1,7 +1,7 @@
 Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
 Upstream-Name: RealtimeKit
 Upstream-Contact: Jan Alexander Steffens (heftig) <jan.steffens@gmail.com>
-Source: https://github.com/heftig/rtkit/
+Source: https://gitlab.freedesktop.org/pipewire/rtkit
 
 Files: *
 Copyright:
